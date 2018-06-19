@@ -1,0 +1,53 @@
+# https://github.com/mjstealey/wordpress-nginx-docker/blob/master/docker-compose.yaml
+
+version: '3.1'
+services:
+  nginx:
+    image: nginx:1.15.0
+    container_name: nginx
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./logs/nginx:/var/log/nginx
+      - ./wordpress:/var/www/html
+      - ./certs:/etc/letsencrypt
+      - ./certs-data:/data/letsencrypt
+    networks:
+      - wp_net
+    links:
+      - wordpress
+    restart: always
+
+  mysql:
+    image: mariadb:10.3.7
+    container_name: mysql
+    volumes:
+      - ./mysql:/var/lib/mysql
+      - ./mysql/conf.d:/etc/mysql/conf.d
+    networks:
+      - wp_net
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PW}
+    restart: always
+
+  wordpress:
+    image: wordpress:php7.2-fpm
+    container_name: wordpress
+    volumes:
+      - ./wordpress:/var/www/html
+    networks:
+      - wp_net
+    environment:
+      - WORDPRESS_DB_NAME=${WP_DB_NAME}
+      - WORDPRESS_TABLE_PREFIX=wp_
+      - WORDPRESS_DB_HOST=mysql
+      - WORDPRESS_DB_USER=${WP_DB_USER}
+      - WORDPRESS_DB_PASSWORD=${WP_DB_PASSWORD}
+    links:
+      - mysql
+    restart: always
+
+networks:
+  wp_net:
