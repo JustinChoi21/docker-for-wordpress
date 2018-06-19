@@ -2,7 +2,7 @@
 Docker compose installation of a single site Wordpress instance using Nginx as the web server and MariaDB as the database.
 
 Work inspired by [https://github.com/mjstealey/wordpress-nginx-docker](https://github.com/mjstealey/wordpress-nginx-docker)
-and [https://jimfrenette.com/2017/03/docker-wordpress-dev-environment/2/](https://jimfrenette.com/2017/03/docker-wordpress-dev-environment/2/)
+and [https://gist.github.com/chadrien/c90927ec2d160ffea9c4](https://gist.github.com/chadrien/c90927ec2d160ffea9c4)
 
 ## Installation
 - Change the name of `.env.example` to `.env`
