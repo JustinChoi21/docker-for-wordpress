@@ -15,7 +15,7 @@ services:
       - ./certs:/etc/letsencrypt
       - ./certs-data:/data/letsencrypt
     networks:
-      - wp_net
+      - front
     links:
       - wordpress
     restart: always
@@ -23,31 +23,56 @@ services:
   mysql:
     image: mariadb:10.3.7
     container_name: mysql
+    ports:
+      - '3306:3306'
     volumes:
       - ./mysql:/var/lib/mysql
       - ./mysql/conf.d:/etc/mysql/conf.d
     networks:
-      - wp_net
+      - back
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_PW}
     restart: always
 
   wordpress:
-    image: wordpress:php7.2-fpm
+    build: ./
     container_name: wordpress
+    environment:
+      XDEBUG_CONFIG: remote_host=${LOCAL_IP_ADDRESS}
+      XDEBUG_CONFIG: idekey=${IDEKEY}
+      WORDPRESS_DB_NAME: ${WP_DB_NAME}
+      WORDPRESS_TABLE_PREFIX: wp_
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: ${WP_DB_USER}
+      WORDPRESS_DB_PASSWORD: ${WP_DB_PASSWORD}
     volumes:
       - ./wordpress:/var/www/html
     networks:
-      - wp_net
-    environment:
-      - WORDPRESS_DB_NAME=${WP_DB_NAME}
-      - WORDPRESS_TABLE_PREFIX=wp_
-      - WORDPRESS_DB_HOST=mysql
-      - WORDPRESS_DB_USER=${WP_DB_USER}
-      - WORDPRESS_DB_PASSWORD=${WP_DB_PASSWORD}
+      - front
+      - back
     links:
       - mysql
     restart: always
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+     - PMA_ARBITRARY=1
+     - MYSQL_USERNAME=${WP_DB_USER}
+     - MYSQL_ROOT_PASSWORD=${MYSQL_PW}
+     - PMA_HOST=mysql
+
+    ports:
+     - 8080:80
+    volumes:
+     - /sessions
+    networks:
+     - back
+    links:
+     - mysql
+    restart: always
+
 networks:
-  wp_net:
+  front:
+  back:
