@@ -99,3 +99,4 @@ composer.lock
 /logs
 /mysql
 /wordpress
+/phpmyadmin
