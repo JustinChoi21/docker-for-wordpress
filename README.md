@@ -16,4 +16,19 @@ and [https://gist.github.com/chadrien/c90927ec2d160ffea9c4](https://gist.github.
 $ docker-compose stop
 $ docker-compose rm -f
 $ rm -rf certs/ certs-data/ logs/ mysql/ wordpress/
+
+or exec shell
+
+$ sh docker-rm.sh
+
+or manually
+
+$ docker stop container_ids
+$ docker rm container_ids
+$ docker volume ls
+$ docker volume rm volume_ids
+$ docker network ls
+$ docker network rm network_ids
+$ docker images
+$ docker rmi image_ids 
 ```
