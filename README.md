@@ -5,7 +5,7 @@ Work inspired by [https://github.com/mjstealey/wordpress-nginx-docker](https://g
 and [https://gist.github.com/chadrien/c90927ec2d160ffea9c4](https://gist.github.com/chadrien/c90927ec2d160ffea9c4)
 
 ## Installation
-- Change the name of `.env.example` to `.env`
+- Change the name of `env.example` to `.env`
 - Update values in `.env`
 - Update the `server_name`(=domain_name) in `nginx/wordpress.conf` to be that of your domain.
 - Run `$ docker-compose up -d`
