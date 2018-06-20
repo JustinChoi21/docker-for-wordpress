@@ -1,5 +1,5 @@
-# docker_for_wordpress (LEMP + xdebug)
-Docker compose installation of a single site Wordpress instance using Nginx as the web server and MariaDB as the database.
+# docker_for_wordpress (LEMP + xdebug + phpmyadmin)
+Docker compose installation of a single site Wordpress instance using nginx + mariadb + php-fpm and xdebug + phpmyadmin
 
 Work inspired by [https://github.com/mjstealey/wordpress-nginx-docker](https://github.com/mjstealey/wordpress-nginx-docker)
 and [https://gist.github.com/chadrien/c90927ec2d160ffea9c4](https://gist.github.com/chadrien/c90927ec2d160ffea9c4)
