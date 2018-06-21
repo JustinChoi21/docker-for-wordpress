@@ -9,7 +9,8 @@ and [https://gist.github.com/chadrien/c90927ec2d160ffea9c4](https://gist.github.
 - Update values in `.env`
 - Update the `server_name`(=domain_name) in `nginx/wordpress.conf` to be that of your domain.
 - Run `$ docker-compose up -d`
-- Navigate to **http://domain_name** in a browser.
+- Navigate to **http://domain_name** and **http://domain_name:8080** in a browser.
+- If something wrong then check permission, ports and reboot machine.
 
 ## Clean up / Removal
 ```
